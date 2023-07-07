@@ -42,3 +42,15 @@ my_cur.execute("select * from pc_rivery_db.public.fruit_load_list")
 my_data_rows = my_cur.fetchall()
 streamlit.header("The fruit load list contains:")
 streamlit.dataframe(my_data_rows)
+
+# Allow the user to add a fruit to the list
+with st.form("add_fruit"):
+    add_my_fruit = st.text_area('add_my_fruit')
+    sub_comment = st.form_submit_button('Submit')
+
+# STEP 4 : WRITE THAT TO A TABLE IN SNOWFLAKE
+if sub_comment:
+        session.sql(f"""PC_RIVERY_DB.PUBLIC.FRUIT_LOAD_LIST
+    VALUES ('{add_my_fruit}')""").collect()
+        st.success('Success!', icon="✅")
+streamlit.write('Thanks for adding ', add_my_fruit)
