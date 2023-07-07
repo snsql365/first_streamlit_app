@@ -50,7 +50,6 @@ with st.form("add_fruit"):
 
 # STEP 4 : WRITE THAT TO A TABLE IN SNOWFLAKE
 if sub_comment:
-        session.sql(f"""PC_RIVERY_DB.PUBLIC.FRUIT_LOAD_LIST
-    VALUES ('{add_my_fruit}')""").collect()
+        session.sql(f"""insert into PC_RIVERY_DB.PUBLIC.FRUIT_LOAD_LIST VALUES ('{add_my_fruit}')""").collect()
         st.success('Success!', icon="✅")
 streamlit.write('Thanks for adding ', add_my_fruit)
